@@ -180,14 +180,21 @@ public class Bank {
     //说明:
     //1）、一个用户可能会有多个账号,以身份证号为准.
     //2）、总资产指多个账户余额的总和,不需要考虑贷款账户的贷款额
-    public void assetRankingSort(){//有待优化
+    public void assetRankingSort(){//有待改进
         //创建收集身份证的列表
         HashSet<String> idSet = new HashSet<String>();//自动去查
         for (Account account:accounts) {
                 idSet.add(account.getPersonId());
         }
         //创建列表用于存储（身份证id：余额总和）
-        Map<String,Double> assetRankingTreeMap = new TreeMap<String,Double>();
+        Map<String,Double> assetRankingTreeMap = new TreeMap<String,Double>(
+                new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        return 0;
+                    }
+                }
+        );
         for(String str : idSet){
             double sum = 0.0;
             for (Account account:accounts) {
