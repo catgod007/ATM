@@ -1,5 +1,10 @@
-public class CreditAccount extends Account{
+package ATM.Account;
+
+import ATM.Account.Account;
+
+public class CreditAccount extends Account {
     private double ceiling;//信用额度
+
 
     public CreditAccount() {
     }
@@ -26,9 +31,16 @@ public class CreditAccount extends Account{
 
     @Override
     public String toString() {
-        return "CreditAccount{" +
-                "ceiling=" + ceiling +
-                "} " + super.toString();
+        return "ATM.Account.CreditAccount{" +
+                "id=" + this.getId() +
+                ", password='" + this.getPassword() + '\'' +
+                ", name='" + this.getName() + '\'' +
+                ", personId='" + this.getPersonId() + '\'' +
+                ", email='" + this.getEmail() + '\'' +
+                ", balance=" + this.getBalance() +
+                ", type=" + this.getType() +
+                ", ceiling=" + ceiling+
+                '}';
     }
 
     public double getCeiling() {
@@ -38,5 +50,6 @@ public class CreditAccount extends Account{
     public void setCeiling(double ceiling) {
         this.ceiling = ceiling;
     }
+
 }
 

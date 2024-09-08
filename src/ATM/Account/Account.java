@@ -1,4 +1,6 @@
-//账户类（Account）,属性并且完全封装（注意:要辨别每个属性的set/get方法是否需要公开）
+package ATM.Account;
+
+//账户类（ATM.Account.Account）,属性并且完全封装（注意:要辨别每个属性的set/get方法是否需要公开）
 //id:账户号码 长整数（Long）
 //password:账户密码 字符串类型（String）
 //name:真实姓名 字符串类型（String）
@@ -8,11 +10,11 @@
 //type :账户类型 整形（int）
 //说明：规定账户类型：0 – 储蓄账户  1 – 信用账户 2 – 可贷款储蓄账户 3– 可贷款信用账户
 //方法:
-//        deposit:  存款方法,参数类型：double, 返回类型：Account
-//        withdraw:取款方法,参数类型：double, 返回类型：Account
+//        deposit:  存款方法,参数类型：double, 返回类型：ATM.Account.Account
+//        withdraw:取款方法,参数类型：double, 返回类型：ATM.Account.Account
 //        构造方法:
 //        有参和无参,有参构造方法用于设置必要的属性
-public class Account {
+public abstract class Account {
     private Long id;
     private String password;
     private String name;
@@ -22,6 +24,7 @@ public class Account {
     //type:规定账户类型：0 – 储蓄账户  1 – 信用账户 2 – 可贷款储蓄账户 3– 可贷款信用账户
     private int type;
 
+    private double loanAmount;//贷款额度（Task04新增）
     public Account(Long id, String password, String name, String personId, String email, double balance,int type) {
         this.id = id;
         this.password = password;
@@ -31,7 +34,7 @@ public class Account {
         this.balance = balance;
         this.type = type;
     }
-//    public Account(Long id, String password, String name, String personId, String email, double balance) {
+//    public ATM.Account.Account(Long id, String password, String name, String personId, String email, double balance) {
 //        this.id = id;
 //        this.password = password;
 //        this.name = name;
@@ -43,7 +46,7 @@ public class Account {
 
     }
     //存款
-    public Account deposit(double money){
+    public final Account deposit(double money){
         if(money>0){
             this.balance +=money;
         }else{
@@ -52,15 +55,7 @@ public class Account {
         return this;
     }
     //取款
-    public Account withdraw(double money){
-        if(this.balance - money<0){
-            System.out.printf("余额不足，请重新输入取款金额");
-
-        }else {
-            this.balance -= money;
-        }
-        return this;
-    }
+    public abstract Account withdraw(double money);
 
     @Override
     public String toString() {
@@ -72,6 +67,7 @@ public class Account {
                 ", email='" + email + '\'' +
                 ", balance=" + balance +
                 ", type=" + type +
+                ", loanAmount=" + loanAmount +
                 '}';
     }
 
@@ -129,5 +125,13 @@ public class Account {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public double getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void setLoanAmount(double loanAmount) {
+        this.loanAmount = loanAmount;
     }
 }
