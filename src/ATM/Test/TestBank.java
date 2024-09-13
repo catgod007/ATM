@@ -3,10 +3,11 @@ package ATM.Test;
 import ATM.Account.Account;
 import ATM.Bank;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TestBank {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Bank bank = Bank.getBank();
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -19,6 +20,8 @@ public class TestBank {
             System.out.println("***5.  转账     ***");
             System.out.println("***6.  银行账户余额     ***");
             System.out.println("***7.  银行账户透支额度总数     ***");
+            System.out.println("***8.  余额排行榜 ***");
+            System.out.print("");
 
             //获取用户输入的数字
             int i = sc.nextInt();
@@ -111,6 +114,9 @@ public class TestBank {
                 case 7:
                     System.out.println("银行账户透支额度总数: "+bank.ceilingSum());
                     break;
+                case 8:
+                    System.out.println("***** 现金排行榜 *****");
+                    bank.assetRankingSort();
             }
         }
     }

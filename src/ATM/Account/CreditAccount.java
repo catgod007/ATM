@@ -18,20 +18,17 @@ public class CreditAccount extends Account {
     public Account withdraw(double money){
         if(this.getBalance()+ceiling < money){
             System.out.println("余额不足，请重新输入取款金额");
-        }else if (this.getBalance() >= money){
+        }else if (this.getBalance()+ceiling > money){
             this.setBalance(this.getBalance()-money);
-        } else if (this.getBalance() < money) {
-            this.setCeiling(ceiling - (money-this.getBalance()));
-            this.setBalance(0.0);
-        }else {
-            System.out.println("机器故障，请联系银行工作人员");
+        }else{
+            System.out.println("信用额度已用尽");
         }
         return this;
     }
 
     @Override
     public String toString() {
-        return "ATM.Account.CreditAccount{" +
+        return "CreditAccount{" +
                 "id=" + this.getId() +
                 ", password='" + this.getPassword() + '\'' +
                 ", name='" + this.getName() + '\'' +
