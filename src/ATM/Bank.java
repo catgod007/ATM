@@ -18,16 +18,6 @@ public class Bank {
     }
     private  Bank() {
     }
-    //懒汉式单例
-//    private static Bank bank = null;
-//    public static Bank getBank() {
-//        if(bank == null){
-//            bank = new Bank();
-//        }
-//        return bank;
-//    }
-//    private Bank() {
-//    }
 
     //0.账号id自动生成
     private Long IDGenerator() {//存储id的文件存在 就读取文件中的id然后生产自增1后存入文件;不存在 就将现在生成的ID存入文件,进行文件存在的操作
@@ -101,18 +91,22 @@ public class Bank {
     public Account register(String password,String repassword,String name,String personID,String email,double balance,int type) {
         Account account = null;
         if(password.equals(repassword)){
-            if (type == 0) {
-                account = new SavingAccount(IDGenerator(), password, name, personID, email, balance,type);
-            } else if (type == 1) {
-                account = new CreditAccount(IDGenerator(), password, name, personID, email,balance,type,3000);
-            } else if (type == 2) {
-                account = new LoanSavingAccount(IDGenerator(), password, name, personID, email,balance,type,1000);
-            } else if (type == 3) {
-                account = new LoanCreditAccount(IDGenerator(), password, name, personID, email,balance,type,3000,1000);
-            } else {
-                System.out.println("账户创建失败");;
+            switch (type){
+                case 0:
+                    account = new SavingAccount(IDGenerator(), password, name, personID, email, balance,type);
+                    break;
+                case 1:
+                    account = new CreditAccount(IDGenerator(), password, name, personID, email,balance,type,3000);
+                    break;
+                case 2:
+                    account = new LoanSavingAccount(IDGenerator(), password, name, personID, email,balance,type,1000);
+                    break;
+                case 3:
+                    account = new LoanCreditAccount(IDGenerator(), password, name, personID, email,balance,type,3000,1000);
+                    break;
+                default:
+                    System.out.println("账户创建失败！！！");
             }
-
             if(account != null){//当账户创建时，就将账户信息写入相应的存储文件
                 accounts.add(account);
                 saveAccount(accounts);
